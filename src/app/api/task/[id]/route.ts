@@ -1,0 +1,107 @@
+import { NextResponse } from "next/server";
+
+// prisma
+
+import { PrismaClient } from "@/../generated/prisma/client";
+const prisma = new PrismaClient();
+
+// type
+
+import { UserType, TaskType } from "@/types/types";
+import { create } from "domain";
+
+//
+
+
+
+
+//  id в пост запросе должен быть id usera полученный с фронтан
+
+
+export const POST = async (req: Request, { params }: { params: { id: string } } ): Promise<NextResponse<UserType | {message: string}>> => {
+  try {
+
+
+    const { id } = await params;
+    const { title, description, author, status } = await req.json();
+
+    console.log(id);
+
+    if(!title || !description || !author) {
+      return NextResponse.json({message: "no empty fields"}, {status: 400})
+    }
+
+
+    const newTask = await prisma.user.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        task: {
+          create: {
+            title,
+            description,
+            author,
+            status: 'inbox',
+          }
+        }
+      },
+      include: {
+        task: {
+          include: {
+            comment: true
+          }
+        }
+      }
+    })
+
+
+    if(!newTask) {
+      return NextResponse.json({message: "error create task"}, {status: 500})
+    }
+
+    return NextResponse.json(newTask, {status: 200});
+
+  } catch (error: unknown) {
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
+
+  }
+}
+
+
+
+// id при удаленни должен быть именно таски приходящего с фронта
+
+
+
+export const DELETE = async (req: Request, { params }: { params: { id: string } }): Promise<NextResponse<{message: string}>> => {
+  try {
+    const { id } = await params;
+
+    if(!id) {
+      return NextResponse.json({message: "no empty fields"}, {status: 400})
+    }
+
+    const deleteTask = await prisma.task.delete({
+      where: {
+        id: parseInt(id),
+      }
+    })
+
+
+    if(!deleteTask) {
+      return NextResponse.json({message: "error delete task"}, {status: 500})
+    }
+
+    return NextResponse.json({message: `delete task ${id}`}, {status: 200});
+
+
+  } catch (error: unknown) {
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
+
+  }
+}
