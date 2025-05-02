@@ -89,15 +89,12 @@ export const DELETE = async (request: Request, {params}: {params: {id: string}})
 }
 
 
-export const PUT = async (request: Request, {params}: {params: {id: string}}): Promise<NextResponse<UserType | {message: string}>> => {
+export const PATCH = async (request: Request, {params}: {params: {id: string}}): Promise<NextResponse<UserType | {message: string}>> => {
 
   try {
     const { id } = await params;
     const { name, lastName, profession, company } = await request.json();
 
-    if (!name || !lastName || !profession || !company) {
-      return NextResponse.json({ message: "All fields are required" }, { status: 400 });
-    }
 
     const updateUser = await prisma.user.update({
       where: {
@@ -106,12 +103,9 @@ export const PUT = async (request: Request, {params}: {params: {id: string}}): P
       data: {
         profile: {
           update: {
-            name,
-            lastName,
-            profession,
-            company
+            name
           }
-        }
+        }  
       },
       include: {
         profile: true,

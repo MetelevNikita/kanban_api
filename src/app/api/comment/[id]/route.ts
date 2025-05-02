@@ -13,7 +13,7 @@ import { create } from "domain";
 
 
 
-//  id в пост запросе должен быть id поста полученный с фронтанщг
+//  id в пост запросе должен быть id поста полученный с фронта
 
 
 export const POST = async (request: Request, { params }: { params: { id: string } }): Promise<NextResponse<TaskType | {message: string}>> => {
@@ -55,6 +55,43 @@ export const POST = async (request: Request, { params }: { params: { id: string 
     return NextResponse.json({ message: errorMessage }, { status: 500 });
 
   }
+}
+
+
+//  id в пост запросе должен быть id коммента полученный с фронта
+
+export const PUT = async (request: Request, { params }: { params: { id: string } }): Promise<NextResponse<CommentType | {message: string}>> => {
+  try {
+
+    const { id } = await params;
+    const { text, author } = await request.json();
+
+    const updateComment = await prisma.comment.update({
+      where: {
+        id: parseInt(id)
+      },
+      data: {
+        text: text,
+        author: author
+      }
+    })
+
+
+    if (!updateComment) {
+      return NextResponse.json({ message: "error updating comment" }, { status: 404 })
+    }
+
+    return NextResponse.json({ message: `updating comment ${id}` }, { status: 200 })
+
+  } catch (error: unknown) {
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
+
+  }
+
+
+
 }
 
 
