@@ -1,5 +1,6 @@
 import { NextResponse } from "next/server";
 
+
 //
 
 import { PrismaClient } from "@/../generated/prisma/client";
@@ -105,7 +106,7 @@ export const PATCH = async (request: Request, {params}: {params: {id: string}}):
           update: {
             name
           }
-        }  
+        }
       },
       include: {
         profile: true,

@@ -1,6 +1,7 @@
 export type UserType = {
   id: number
   username: string
+  avatar: string
   email: string
   password: string
   createAt: Date | any

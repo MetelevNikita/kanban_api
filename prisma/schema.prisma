@@ -15,6 +15,7 @@ datasource db {
 model User {
   id Int @id @default(autoincrement())
   username String
+  avatar String @default("default-avatar.png")
   email String
   password String
   createAt DateTime @default(now())
