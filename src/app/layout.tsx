@@ -7,6 +7,10 @@ import "./globals.css";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import { Container } from "react-bootstrap";
 
+// Provider
+
+import { StoreProvider } from "@/app/lib/StoreProvider";
+
 
 
 export default function RootLayout({
@@ -15,6 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
+    <StoreProvider>
     <html lang="en">
       <body>
         <Container>
@@ -24,5 +29,6 @@ export default function RootLayout({
         </Container>
       </body>
     </html>
+    </StoreProvider>
   );
 }

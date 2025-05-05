@@ -158,7 +158,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "E:\\Никита\\Next Js\\kanban_api\\generated\\prisma",
+      "value": "D:\\NEXT JS\\kanban_api\\generated\\prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -172,7 +172,7 @@ const config = {
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "E:\\Никита\\Next Js\\kanban_api\\prisma\\schema.prisma",
+    "sourceFilePath": "D:\\NEXT JS\\kanban_api\\prisma\\schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -190,7 +190,7 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:123456Zz@localhost:5432/kanban?schema=public"
+        "value": "postgresql://postgres:root@localhost:5432/kanban_api?schema=public"
       }
     }
   },

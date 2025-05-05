@@ -20,9 +20,9 @@ const Registration = () => {
       <form action={createUser}>
 
         <Row>
-          <input type="text" name='username'/>
-          <input type="text" name='email'/>
-          <input type="text" name='password'/>
+          <input type="text" name='username' placeholder='username'/>
+          <input type="text" name='email' placeholder='email'/>
+          <input type="text" name='password' placeholder='password'/>
           <input type="file" name='avatar'/>
           <button type='submit'>Создать</button>
 
