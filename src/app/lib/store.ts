@@ -3,13 +3,15 @@ import { configureStore } from "@reduxjs/toolkit";
 // slice
 
 import UserSlice from "@/app/lib/slice/userSlice";
+import TaskSlice from "@/app/lib/slice/taskSlice";
 
 
 
 export const makeStore = () => {
   return configureStore({
     reducer: {
-      user: UserSlice.reducer
+      user: UserSlice.reducer,
+      task: TaskSlice.reducer
     }
   })
 }

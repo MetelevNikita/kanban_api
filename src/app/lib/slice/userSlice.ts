@@ -28,6 +28,11 @@ export const fetchAllUsers = createAsyncThunk(
     })
 
 
+    if (!responce.ok) {
+      return new Error('Failed to fetch Task');
+    }
+
+
     const data = await responce.json()
     console.log(data)
     return data

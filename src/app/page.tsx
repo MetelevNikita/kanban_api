@@ -6,6 +6,7 @@ import { FC, useEffect, useState } from 'react'
 
 import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
 import { fetchAllUsers } from './lib/slice/userSlice'
+import { fetchAllTasks } from './lib/slice/taskSlice'
 
 // types
 
@@ -20,7 +21,8 @@ const page = () => {
   const [users, setUsers] = useState<UserType[] | any>([])
 
   const dispatch = useAppDispatch()
-  const selector = useAppSelector(state => state.user.user)
+  const allUser = useAppSelector(state => state.user.user)
+  const allTask = useAppSelector(state => state.task.task)
 
 
   useEffect(() => {
@@ -31,7 +33,7 @@ const page = () => {
 
 
 
-  console.log(selector)
+  console.log(allUser)
 
 
 
