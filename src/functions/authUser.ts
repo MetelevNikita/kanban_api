@@ -1,9 +1,12 @@
-export const authUser = async (formData: FormData) => {
+export const authUser = async (dataAuth: {email: string, password: string}) => {
 
   try {
 
-    const email = formData.get('email') as string;
-    const password = formData.get('password') as string;
+    // const email = formData.get('email') as string;
+    // const password = formData.get('password') as string;
+
+    const email = dataAuth.email as string;
+    const password = dataAuth.password as string;
 
     console.log(email, password);
 

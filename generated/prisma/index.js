@@ -159,7 +159,7 @@ const config = {
       "value": "prisma-client-js"
     },
     "output": {
-      "value": "D:\\NEXT JS\\kanban_api\\generated\\prisma",
+      "value": "/Users/nikitametelev/Documents/nextjs/kanban_api/generated/prisma",
       "fromEnvVar": null
     },
     "config": {
@@ -168,12 +168,12 @@ const config = {
     "binaryTargets": [
       {
         "fromEnvVar": null,
-        "value": "windows",
+        "value": "darwin-arm64",
         "native": true
       }
     ],
     "previewFeatures": [],
-    "sourceFilePath": "D:\\NEXT JS\\kanban_api\\prisma\\schema.prisma",
+    "sourceFilePath": "/Users/nikitametelev/Documents/nextjs/kanban_api/prisma/schema.prisma",
     "isCustomOutput": true
   },
   "relativeEnvPaths": {
@@ -191,12 +191,12 @@ const config = {
     "db": {
       "url": {
         "fromEnvVar": "DATABASE_URL",
-        "value": "postgresql://postgres:root@localhost:5432/kanban_api?schema=public"
+        "value": "postgresql://nikitametelev:27021989@localhost:5432/kanban_api?schema=public"
       }
     }
   },
-  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgres\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  username String\n  avatar   String   @default(\"default-avatar.png\")\n  email    String\n  password String\n  createAt DateTime @default(now())\n  updateAt DateTime @updatedAt\n  isAdmin  Boolean\n  profile  Profile?\n  task     Task[]\n}\n\nmodel Profile {\n  id         Int    @id @default(autoincrement())\n  userId     Int    @unique\n  name       String\n  lastName   String\n  profession String\n  company    String\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Task {\n  id          Int       @id @default(autoincrement())\n  userId      Int\n  title       String\n  description String\n  author      String\n  createAt    DateTime  @default(now())\n  status      String\n  comment     Comment[]\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Comment {\n  id       Int      @id @default(autoincrement())\n  postId   Int\n  author   String\n  text     String\n  createAt DateTime @default(now())\n\n  task Task @relation(fields: [postId], references: [id])\n}\n",
-  "inlineSchemaHash": "438c6eb902d714b3204a59f945bf4eae96d1318fe21fad3381a83fe301537db0",
+  "inlineSchema": "// This is your Prisma schema file,\n// learn more about it in the docs: https://pris.ly/d/prisma-schema\n\ngenerator client {\n  provider = \"prisma-client-js\"\n  output   = \"../generated/prisma\"\n}\n\ndatasource db {\n  provider = \"postgresql\"\n  url      = env(\"DATABASE_URL\")\n}\n\nmodel User {\n  id       Int      @id @default(autoincrement())\n  username String\n  avatar   String   @default(\"default-avatar.png\")\n  email    String\n  password String\n  createAt DateTime @default(now())\n  updateAt DateTime @updatedAt\n  isAdmin  Boolean\n  profile  Profile?\n  task     Task[]\n}\n\nmodel Profile {\n  id         Int    @id @default(autoincrement())\n  userId     Int    @unique\n  name       String\n  lastName   String\n  profession String\n  company    String\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Task {\n  id          Int       @id @default(autoincrement())\n  userId      Int\n  title       String\n  description String\n  author      String\n  createAt    DateTime  @default(now())\n  status      String\n  comment     Comment[]\n\n  user User @relation(fields: [userId], references: [id])\n}\n\nmodel Comment {\n  id       Int      @id @default(autoincrement())\n  postId   Int\n  author   String\n  text     String\n  createAt DateTime @default(now())\n\n  task Task @relation(fields: [postId], references: [id])\n}\n",
+  "inlineSchemaHash": "69b06a76d5b6f5c949af5bb922272b25913575cfe5f99a3fe78b318e9d21c892",
   "copyEngine": true
 }
 
@@ -235,8 +235,8 @@ exports.PrismaClient = PrismaClient
 Object.assign(exports, Prisma)
 
 // file annotations for bundling tools to include these files
-path.join(__dirname, "query_engine-windows.dll.node");
-path.join(process.cwd(), "generated/prisma/query_engine-windows.dll.node")
+path.join(__dirname, "libquery_engine-darwin-arm64.dylib.node");
+path.join(process.cwd(), "generated/prisma/libquery_engine-darwin-arm64.dylib.node")
 // file annotations for bundling tools to include these files
 path.join(__dirname, "schema.prisma");
 path.join(process.cwd(), "generated/prisma/schema.prisma")

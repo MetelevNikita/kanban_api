@@ -13,6 +13,10 @@ const prisma = new PrismaClient();
 export const POST = async (req:Request) => {
   try {
 
+
+    const PORT = process.env.PORT
+    console.log(PORT)
+
     const { email, password } = await req.json();
 
     console.log(email,password);

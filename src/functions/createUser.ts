@@ -10,6 +10,7 @@ export const createUser = async (formData: FormData) => {
     const data = await responce.json();
       if (!responce.ok) throw new Error(data.error || "Upload failed");
 
+    window.location.href = '/login';
 
   } catch (error) {
     console.error(error)

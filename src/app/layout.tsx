@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
-import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
+
+// fonts
+
+import { Montserrat } from "next/font/google";
 
 // bootsatrap
 
@@ -13,6 +16,11 @@ import { StoreProvider } from "@/app/lib/StoreProvider";
 
 
 
+
+const montserrat = Montserrat({ subsets: ['latin'] });
+
+
+
 export default function RootLayout({
   children,
 }: Readonly<{
@@ -20,7 +28,7 @@ export default function RootLayout({
 }>) {
   return (
     <StoreProvider>
-    <html lang="en">
+    <html lang="en" className={montserrat.className}>
       <body>
         <Container>
 
