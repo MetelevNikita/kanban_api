@@ -1,0 +1,15 @@
+.header_container {
+    height: 94px;
+}
+
+.header_menu {}
+
+.header_menu_title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #000000;
+    text-transform: uppercase;
+
+}
+
+.header_profile {}
