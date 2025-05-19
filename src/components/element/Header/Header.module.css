@@ -1,5 +1,19 @@
 .header_container {
     height: 94px;
+    background-color: #e5f4fe!important;
+    padding: 0;
+}
+
+
+.header_image {
+    padding-left: 100px;
+}
+
+
+.header_logo {
+    display: flex;
+    margin-left: 20px;
+    
 }
 
 .header_menu {}
@@ -12,4 +26,11 @@
 
 }
 
-.header_profile {}
+.header_profile {
+    padding-right: 100px;
+}
+
+.header_line {
+    height: 1px;
+    background-color: #BACDD7;
+}

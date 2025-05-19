@@ -5,7 +5,7 @@
     color: rgb(0, 0, 0);
     font-size: 13px;
     padding: 10px 15px;
-    border-radius: 20px;
+    border-radius: 5px;
     border: 1px solid #00B0E1;
     cursor: pointer;
     outline: none;
@@ -32,7 +32,7 @@
     background-color: #00B0E1;
     font-size: 13px;
     padding: 10px 15px;
-    border-radius: 20px;
+    border-radius: 5px;
     border: 1px solid #00B0E1;
     cursor: pointer;
     outline: none;

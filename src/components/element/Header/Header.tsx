@@ -1,7 +1,8 @@
 "use client"
 
-import { FC, useEffect, useState } from 'react'
+import { FC, useContext, useEffect, useState } from 'react'
 import Image from 'next/image'
+import { MenuContext } from '@/app/main/layout'
 
 // 
 
@@ -22,117 +23,117 @@ import logo from '@/asset/logo/logo.svg'
 import emptyAvatar from '@/asset/header_profile/empty_avatar.svg'
 import quitProfile from '@/asset/header_profile/header_quit.svg'
 
-// redux
-
-import { useAppDispatch, useAppSelector } from '@/hooks/hooks'
-import { fetchSingleUser } from '@/app/lib/slice/userSlice'
-
 // fn
 
 import { logOut } from '@/functions/logOutUser'
 
 // types
 
-import { MenuButtonType } from '@/types/types'
+import { MenuButtonType, UserType, CompanyArrType } from '@/types/types'
+
+// api
+
+import { getAllUsers } from '@/functions/getAllUsers'
 
 
 
 const Header: FC = ():React.ReactNode  => {
 
-
-  const [menuActive, setMenuActive] = useState<string>('')
+  const { menuActive, setMenuActive } = useContext(MenuContext)
   const [menu, setMenu] = useState<string>('')
+  const [user, setUser] = useState<UserType[]>([])
+
+  console.log(menuActive)
+
+  useEffect(() => {
+    const getUsers = async () => {
+      const res = await getAllUsers();
+      setUser(res);
+    }
+
+    getUsers()
+  }, [])
 
 
-  const menuButton: MenuButtonType[] = [
+
+  const menuButton: CompanyArrType[] = [
     {
-      name: 'designers',
+      id: 1,
       label: 'Дизайнеры',
+      value: 'designers',
       isActive: false
     },
     {
-      name: 'Editors',
+      id: 2,
       label: 'Монтажеры',
+      value: 'editors',
       isActive: false
     },
     {
-      name: 'Production',
+      id: 3,
       label: 'Продакшен',
+      value: 'productions',
       isActive: false
     },
     {
-      name: 'Operators',
+      id: 4,
       label: 'Операторы',
+      value: 'Operators',
       isActive: false
     }
   ]
 
 
-  const dispatch = useAppDispatch()
-  const user = useAppSelector(state => state.user.user)
-
-
   useEffect(() => {
 
-    if (typeof window !== 'undefined') { // Проверяем, что код выполняется в браузере
-      const id = sessionStorage.getItem('userId');
-
-      if(!id) {
-        return
-      }
-
-      dispatch(fetchSingleUser(JSON.parse(id)))
+    if (user.length > 0) {
+      setMenuActive(user[0].company);
     }
+  }, [user])
+  
 
-  }, [dispatch])
+  const currentComopanyButton = menuButton.filter(item => item.value == menuActive)[0];
 
-
-
+  
   return (
 
-    <Container fluid>
+    <Container fluid style={{padding: '0px'}}>
         <Row className={`${styles.header_container} d-flex justify-content-center align-items-center`}>
             <Col md={3} className={`${styles.header_image}`}>
 
-                <Image width={226} src={logo} alt='logo'/>
+                <Image width={100} src={logo} alt='logo'/>
 
             </Col>
 
 
             <Col md={7} className={`${styles.header_menu} d-flex flex-row justify-content-around`}>
-
-
                 <Col md={2}>
-                    <div className={styles.header_menu_title}>{menu}</div>
+                    <div className={styles.header_menu_title}>{(currentComopanyButton) ? currentComopanyButton.label : menuActive}</div>
                 </Col>
-
 
                 <Col md={8} className={`${styles.header_menu_buttons} d-flex flex-row justify-content-around align-items-center`}>
-
-                  {menuButton.map((item: MenuButtonType, index: number): React.ReactNode => {
-                    return <MyButton key={index+1} color={(item.label === menuActive) ? 'button_active' : 'button'} text={item.label} type={'button'} onClick={(e) => {
-                      
-                      console.log(item)
+                  {menuButton.map((item: CompanyArrType ): React.ReactNode => {
+                    return <MyButton key={item.id} color={(item.value === menuActive) ? 'button_active' : 'button'} text={item.label} type={'button'} onClick={(e) => {
                       setMenu(item.label)
-                      setMenuActive(item.label)
-          
+                      setMenuActive(item.value)
                     }}/>
                   })}
-
                 </Col>
-
-
-              
-
             </Col>
 
 
 
             <Col md={2} className={`${styles.header_profile} d-flex justify-content-end align-items-center`}>
-
               <Header_profile name={user[0]?.username || ''} avatar_img={(!user[0]?.avatar) ? emptyAvatar : user[0].avatar} quit_img={quitProfile} quit={() => {logOut()}}/>
-
             </Col>
+        </Row>
+
+        <Row>
+
+            <div className={styles.header_line}></div>
+
+
+
         </Row>
     </Container>
 

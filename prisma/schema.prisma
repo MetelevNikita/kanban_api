@@ -17,6 +17,7 @@ model User {
   username String
   avatar String @default("default-avatar.png")
   email String
+  company String
   password String
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
@@ -30,7 +31,6 @@ model Profile {
   name String
   lastName String
   profession String
-  company String
 
   user User @relation(fields: [userId], references: [id])
 }

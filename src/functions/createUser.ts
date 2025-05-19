@@ -2,6 +2,8 @@ export const createUser = async (formData: FormData) => {
 
   try {
 
+    console.log(...formData);
+
     const responce = await fetch('http://localhost:3000/api/user', {
       method: 'POST',
       body: formData

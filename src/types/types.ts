@@ -4,6 +4,7 @@ export type UserType = {
   avatar: string | any
   email: string
   password: string
+  company: string
   createAt: Date | any
   updateAt: Date | any
   isAdmin: boolean
@@ -18,7 +19,6 @@ export type ProfileType = {
   name: string
   lastName: string
   profession: string
-  company: string
 }
 
 
@@ -50,5 +50,25 @@ export type CommentType = {
 export type MenuButtonType = {
   name: string
   label: string
+  isActive: boolean
+}
+
+// Board
+
+export type BoardType = {
+  id: number
+  label: string
+  value: string
+  color: string
+  colorBoard: string
+}
+
+
+// companyArr
+
+export type CompanyArrType = {
+  id: number
+  label: string
+  value: string
   isActive: boolean
 }

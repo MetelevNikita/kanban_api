@@ -54,13 +54,14 @@ export const POST = async (request: Request) => {
     const email = formData.get('email') as string;
     const password = formData.get('password') as string;
     const file: File | null = await formData.get('avatar') as unknown as File;
+    const company = formData.get('company') as string
 
 
     const checkPassword = password.split('')
 
     const filename = await uploadImageHandler(file)
 
-    console.log(username, email, password);
+    console.log(username, email, password, company);
 
     if (!username || !email || !password) {
       return NextResponse.json({ error: "please enter all field" }, { status: 404 });
@@ -78,6 +79,7 @@ export const POST = async (request: Request) => {
         avatar: `${url.origin}/uploads/avatar/${filename}`,
         email: email.trim(),
         password: hashPassword,
+        company: company.trim(),
         isAdmin: false
       }
     })

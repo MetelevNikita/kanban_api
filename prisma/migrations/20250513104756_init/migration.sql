@@ -4,6 +4,7 @@ CREATE TABLE "User" (
     "username" TEXT NOT NULL,
     "avatar" TEXT NOT NULL DEFAULT 'default-avatar.png',
     "email" TEXT NOT NULL,
+    "company" TEXT NOT NULL,
     "password" TEXT NOT NULL,
     "createAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
     "updateAt" TIMESTAMP(3) NOT NULL,
@@ -19,7 +20,6 @@ CREATE TABLE "Profile" (
     "name" TEXT NOT NULL,
     "lastName" TEXT NOT NULL,
     "profession" TEXT NOT NULL,
-    "company" TEXT NOT NULL,
 
     CONSTRAINT "Profile_pkey" PRIMARY KEY ("id")
 );

@@ -125,6 +125,7 @@ exports.Prisma.UserScalarFieldEnum = {
   username: 'username',
   avatar: 'avatar',
   email: 'email',
+  company: 'company',
   password: 'password',
   createAt: 'createAt',
   updateAt: 'updateAt',
@@ -136,8 +137,7 @@ exports.Prisma.ProfileScalarFieldEnum = {
   userId: 'userId',
   name: 'name',
   lastName: 'lastName',
-  profession: 'profession',
-  company: 'company'
+  profession: 'profession'
 };
 
 exports.Prisma.TaskScalarFieldEnum = {

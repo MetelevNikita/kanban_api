@@ -1197,6 +1197,7 @@ export namespace Prisma {
     username: string | null
     avatar: string | null
     email: string | null
+    company: string | null
     password: string | null
     createAt: Date | null
     updateAt: Date | null
@@ -1208,6 +1209,7 @@ export namespace Prisma {
     username: string | null
     avatar: string | null
     email: string | null
+    company: string | null
     password: string | null
     createAt: Date | null
     updateAt: Date | null
@@ -1219,6 +1221,7 @@ export namespace Prisma {
     username: number
     avatar: number
     email: number
+    company: number
     password: number
     createAt: number
     updateAt: number
@@ -1240,6 +1243,7 @@ export namespace Prisma {
     username?: true
     avatar?: true
     email?: true
+    company?: true
     password?: true
     createAt?: true
     updateAt?: true
@@ -1251,6 +1255,7 @@ export namespace Prisma {
     username?: true
     avatar?: true
     email?: true
+    company?: true
     password?: true
     createAt?: true
     updateAt?: true
@@ -1262,6 +1267,7 @@ export namespace Prisma {
     username?: true
     avatar?: true
     email?: true
+    company?: true
     password?: true
     createAt?: true
     updateAt?: true
@@ -1360,6 +1366,7 @@ export namespace Prisma {
     username: string
     avatar: string
     email: string
+    company: string
     password: string
     createAt: Date
     updateAt: Date
@@ -1390,6 +1397,7 @@ export namespace Prisma {
     username?: boolean
     avatar?: boolean
     email?: boolean
+    company?: boolean
     password?: boolean
     createAt?: boolean
     updateAt?: boolean
@@ -1402,6 +1410,7 @@ export namespace Prisma {
     username?: boolean
     avatar?: boolean
     email?: boolean
+    company?: boolean
     password?: boolean
     createAt?: boolean
     updateAt?: boolean
@@ -1413,6 +1422,7 @@ export namespace Prisma {
     username?: boolean
     avatar?: boolean
     email?: boolean
+    company?: boolean
     password?: boolean
     createAt?: boolean
     updateAt?: boolean
@@ -1424,13 +1434,14 @@ export namespace Prisma {
     username?: boolean
     avatar?: boolean
     email?: boolean
+    company?: boolean
     password?: boolean
     createAt?: boolean
     updateAt?: boolean
     isAdmin?: boolean
   }
 
-  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "avatar" | "email" | "password" | "createAt" | "updateAt" | "isAdmin", ExtArgs["result"]["user"]>
+  export type UserOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "username" | "avatar" | "email" | "company" | "password" | "createAt" | "updateAt" | "isAdmin", ExtArgs["result"]["user"]>
   export type UserInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     profile?: boolean | User$profileArgs<ExtArgs>
   }
@@ -1447,6 +1458,7 @@ export namespace Prisma {
       username: string
       avatar: string
       email: string
+      company: string
       password: string
       createAt: Date
       updateAt: Date
@@ -1879,6 +1891,7 @@ export namespace Prisma {
     readonly username: FieldRef<"User", 'String'>
     readonly avatar: FieldRef<"User", 'String'>
     readonly email: FieldRef<"User", 'String'>
+    readonly company: FieldRef<"User", 'String'>
     readonly password: FieldRef<"User", 'String'>
     readonly createAt: FieldRef<"User", 'DateTime'>
     readonly updateAt: FieldRef<"User", 'DateTime'>
@@ -2336,7 +2349,6 @@ export namespace Prisma {
     name: string | null
     lastName: string | null
     profession: string | null
-    company: string | null
   }
 
   export type ProfileMaxAggregateOutputType = {
@@ -2345,7 +2357,6 @@ export namespace Prisma {
     name: string | null
     lastName: string | null
     profession: string | null
-    company: string | null
   }
 
   export type ProfileCountAggregateOutputType = {
@@ -2354,7 +2365,6 @@ export namespace Prisma {
     name: number
     lastName: number
     profession: number
-    company: number
     _all: number
   }
 
@@ -2375,7 +2385,6 @@ export namespace Prisma {
     name?: true
     lastName?: true
     profession?: true
-    company?: true
   }
 
   export type ProfileMaxAggregateInputType = {
@@ -2384,7 +2393,6 @@ export namespace Prisma {
     name?: true
     lastName?: true
     profession?: true
-    company?: true
   }
 
   export type ProfileCountAggregateInputType = {
@@ -2393,7 +2401,6 @@ export namespace Prisma {
     name?: true
     lastName?: true
     profession?: true
-    company?: true
     _all?: true
   }
 
@@ -2489,7 +2496,6 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
     _count: ProfileCountAggregateOutputType | null
     _avg: ProfileAvgAggregateOutputType | null
     _sum: ProfileSumAggregateOutputType | null
@@ -2517,7 +2523,6 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     profession?: boolean
-    company?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -2527,7 +2532,6 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     profession?: boolean
-    company?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -2537,7 +2541,6 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     profession?: boolean
-    company?: boolean
     user?: boolean | UserDefaultArgs<ExtArgs>
   }, ExtArgs["result"]["profile"]>
 
@@ -2547,10 +2550,9 @@ export namespace Prisma {
     name?: boolean
     lastName?: boolean
     profession?: boolean
-    company?: boolean
   }
 
-  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "lastName" | "profession" | "company", ExtArgs["result"]["profile"]>
+  export type ProfileOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "userId" | "name" | "lastName" | "profession", ExtArgs["result"]["profile"]>
   export type ProfileInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     user?: boolean | UserDefaultArgs<ExtArgs>
   }
@@ -2572,7 +2574,6 @@ export namespace Prisma {
       name: string
       lastName: string
       profession: string
-      company: string
     }, ExtArgs["result"]["profile"]>
     composites: {}
   }
@@ -3002,7 +3003,6 @@ export namespace Prisma {
     readonly name: FieldRef<"Profile", 'String'>
     readonly lastName: FieldRef<"Profile", 'String'>
     readonly profession: FieldRef<"Profile", 'String'>
-    readonly company: FieldRef<"Profile", 'String'>
   }
     
 
@@ -5679,6 +5679,7 @@ export namespace Prisma {
     username: 'username',
     avatar: 'avatar',
     email: 'email',
+    company: 'company',
     password: 'password',
     createAt: 'createAt',
     updateAt: 'updateAt',
@@ -5693,8 +5694,7 @@ export namespace Prisma {
     userId: 'userId',
     name: 'name',
     lastName: 'lastName',
-    profession: 'profession',
-    company: 'company'
+    profession: 'profession'
   };
 
   export type ProfileScalarFieldEnum = (typeof ProfileScalarFieldEnum)[keyof typeof ProfileScalarFieldEnum]
@@ -5820,6 +5820,7 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     avatar?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    company?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -5832,6 +5833,7 @@ export namespace Prisma {
     username?: SortOrder
     avatar?: SortOrder
     email?: SortOrder
+    company?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -5847,6 +5849,7 @@ export namespace Prisma {
     username?: StringFilter<"User"> | string
     avatar?: StringFilter<"User"> | string
     email?: StringFilter<"User"> | string
+    company?: StringFilter<"User"> | string
     password?: StringFilter<"User"> | string
     createAt?: DateTimeFilter<"User"> | Date | string
     updateAt?: DateTimeFilter<"User"> | Date | string
@@ -5859,6 +5862,7 @@ export namespace Prisma {
     username?: SortOrder
     avatar?: SortOrder
     email?: SortOrder
+    company?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -5878,6 +5882,7 @@ export namespace Prisma {
     username?: StringWithAggregatesFilter<"User"> | string
     avatar?: StringWithAggregatesFilter<"User"> | string
     email?: StringWithAggregatesFilter<"User"> | string
+    company?: StringWithAggregatesFilter<"User"> | string
     password?: StringWithAggregatesFilter<"User"> | string
     createAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
     updateAt?: DateTimeWithAggregatesFilter<"User"> | Date | string
@@ -5893,7 +5898,6 @@ export namespace Prisma {
     name?: StringFilter<"Profile"> | string
     lastName?: StringFilter<"Profile"> | string
     profession?: StringFilter<"Profile"> | string
-    company?: StringFilter<"Profile"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }
 
@@ -5903,7 +5907,6 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     profession?: SortOrder
-    company?: SortOrder
     user?: UserOrderByWithRelationInput
   }
 
@@ -5916,7 +5919,6 @@ export namespace Prisma {
     name?: StringFilter<"Profile"> | string
     lastName?: StringFilter<"Profile"> | string
     profession?: StringFilter<"Profile"> | string
-    company?: StringFilter<"Profile"> | string
     user?: XOR<UserScalarRelationFilter, UserWhereInput>
   }, "id" | "userId">
 
@@ -5926,7 +5928,6 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     profession?: SortOrder
-    company?: SortOrder
     _count?: ProfileCountOrderByAggregateInput
     _avg?: ProfileAvgOrderByAggregateInput
     _max?: ProfileMaxOrderByAggregateInput
@@ -5943,7 +5944,6 @@ export namespace Prisma {
     name?: StringWithAggregatesFilter<"Profile"> | string
     lastName?: StringWithAggregatesFilter<"Profile"> | string
     profession?: StringWithAggregatesFilter<"Profile"> | string
-    company?: StringWithAggregatesFilter<"Profile"> | string
   }
 
   export type TaskWhereInput = {
@@ -6079,6 +6079,7 @@ export namespace Prisma {
     username: string
     avatar?: string
     email: string
+    company: string
     password: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -6091,6 +6092,7 @@ export namespace Prisma {
     username: string
     avatar?: string
     email: string
+    company: string
     password: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -6102,6 +6104,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6114,6 +6117,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6126,6 +6130,7 @@ export namespace Prisma {
     username: string
     avatar?: string
     email: string
+    company: string
     password: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -6136,6 +6141,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6147,6 +6153,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6157,7 +6164,6 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
     user: UserCreateNestedOneWithoutProfileInput
   }
 
@@ -6167,14 +6173,12 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
   }
 
   export type ProfileUpdateInput = {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
     user?: UserUpdateOneRequiredWithoutProfileNestedInput
   }
 
@@ -6184,7 +6188,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileCreateManyInput = {
@@ -6193,14 +6196,12 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
   }
 
   export type ProfileUpdateManyMutationInput = {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileUncheckedUpdateManyInput = {
@@ -6209,7 +6210,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
   }
 
   export type TaskCreateInput = {
@@ -6394,6 +6394,7 @@ export namespace Prisma {
     username?: SortOrder
     avatar?: SortOrder
     email?: SortOrder
+    company?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -6409,6 +6410,7 @@ export namespace Prisma {
     username?: SortOrder
     avatar?: SortOrder
     email?: SortOrder
+    company?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -6420,6 +6422,7 @@ export namespace Prisma {
     username?: SortOrder
     avatar?: SortOrder
     email?: SortOrder
+    company?: SortOrder
     password?: SortOrder
     createAt?: SortOrder
     updateAt?: SortOrder
@@ -6497,7 +6500,6 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     profession?: SortOrder
-    company?: SortOrder
   }
 
   export type ProfileAvgOrderByAggregateInput = {
@@ -6511,7 +6513,6 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     profession?: SortOrder
-    company?: SortOrder
   }
 
   export type ProfileMinOrderByAggregateInput = {
@@ -6520,7 +6521,6 @@ export namespace Prisma {
     name?: SortOrder
     lastName?: SortOrder
     profession?: SortOrder
-    company?: SortOrder
   }
 
   export type ProfileSumOrderByAggregateInput = {
@@ -6853,7 +6853,6 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
   }
 
   export type ProfileUncheckedCreateWithoutUserInput = {
@@ -6861,7 +6860,6 @@ export namespace Prisma {
     name: string
     lastName: string
     profession: string
-    company: string
   }
 
   export type ProfileCreateOrConnectWithoutUserInput = {
@@ -6884,7 +6882,6 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
   }
 
   export type ProfileUncheckedUpdateWithoutUserInput = {
@@ -6892,13 +6889,13 @@ export namespace Prisma {
     name?: StringFieldUpdateOperationsInput | string
     lastName?: StringFieldUpdateOperationsInput | string
     profession?: StringFieldUpdateOperationsInput | string
-    company?: StringFieldUpdateOperationsInput | string
   }
 
   export type UserCreateWithoutProfileInput = {
     username: string
     avatar?: string
     email: string
+    company: string
     password: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -6910,6 +6907,7 @@ export namespace Prisma {
     username: string
     avatar?: string
     email: string
+    company: string
     password: string
     createAt?: Date | string
     updateAt?: Date | string
@@ -6936,6 +6934,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
@@ -6947,6 +6946,7 @@ export namespace Prisma {
     username?: StringFieldUpdateOperationsInput | string
     avatar?: StringFieldUpdateOperationsInput | string
     email?: StringFieldUpdateOperationsInput | string
+    company?: StringFieldUpdateOperationsInput | string
     password?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     updateAt?: DateTimeFieldUpdateOperationsInput | Date | string
