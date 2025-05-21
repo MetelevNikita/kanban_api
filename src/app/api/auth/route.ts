@@ -25,6 +25,9 @@ export const POST = async (req:Request) => {
       }
     });
 
+
+    console.log(checkUser);
+
     if (!checkUser) {
       return NextResponse.json({ message: 'email not valid' }, { status: 404 });
     }

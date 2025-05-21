@@ -1,23 +1,40 @@
-.input_container {
+.file_container {
     display: flex;
     flex-direction: column;
     margin-bottom: 10px;
 }
 
-.input_title {
+.file_title {
     font-size: 14px;
     color: black;
     margin-bottom: 5px;
 }
 
-.input {
+.custom_input_file {}
+
+
+/*  */
+
+.file_input {
     width: 353px;
     height: 56px;
     padding-left: 10px;
-    padding-right: 30px;
     border-radius: 5px;
     background-color: white;
     font-size: 14px;
     outline: none;
-    
+
+
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.file_input_title {
+    margin-left: 10px;
+}
+
+.file_input_img {
+    margin-left: auto;
+    margin-right: 10px;
 }

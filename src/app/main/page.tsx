@@ -1,7 +1,8 @@
 'use client'
 
 import { FC, useEffect, useState, useContext } from 'react'
-import { MenuContext } from './layout'
+import { MenuContext, RefreshContext } from './layout'
+import { useQuery, useQueryClient, QueryClientProvider } from '@tanstack/react-query'
 
 // 
 
@@ -28,10 +29,25 @@ import { getAllTasks } from '@/functions/tasks/getAllTasks'
 const page: FC = () => {
 
   const {menuActive, setMenuActive} = useContext(MenuContext)
+  const {refresh, setRefresh} = useContext(RefreshContext)
   const [users, setUsers] = useState<UserType[]>([])
   const [tasks, setTasks] = useState<TaskType[]>([])
 
+  console.log(refresh)
   console.log(menuActive)
+
+
+  // внимательно изучить данную тему!!!!!!!!
+
+ const { data } = useQuery({ queryKey: ['todos'], queryFn: getAllTasks, refetchInterval: 30000, staleTime: 300000, refetchOnWindowFocus: false, refetchOnMount: false })
+ console.log(data)
+
+
+ 
+//  
+
+
+ 
 
   useEffect(() => {
 
@@ -48,11 +64,10 @@ const page: FC = () => {
       return res
     }
 
-
     getUser()
     getTask()
 
-  }, [])
+  }, [refresh])
 
 
   const activeCompanyTasks = tasks.filter(item => item.company === menuActive)
@@ -115,6 +130,7 @@ const page: FC = () => {
 
   return (
 
+
     <Container fluid className={styles.body_container}>
       <Row>
         <Col >
@@ -133,6 +149,8 @@ const page: FC = () => {
         </Col>
       </Row>
     </Container>
+
+
 
   )
 }

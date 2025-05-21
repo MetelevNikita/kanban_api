@@ -1,6 +1,55 @@
-.btn_container {
-    width: 520px;
-    margin-top: 20px;
-    display: flex;
-    justify-content: space-between
+
+.login_title {
+    font-size: 22px;
+    color: #2A4587;
+    font-weight: 600;
 }
+
+.button_selector_container {
+    display: flex;
+    align-items: center;
+    
+    /*  */
+
+    width: 353px;
+    height: 46px;
+    border-radius: 10px;
+    border: 1px solid #2A4587;
+}
+
+.form_container {
+    width: 449px;
+    height: max-content;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background-color: #DBEEF8;
+    border-radius: 10px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+/*  */
+
+
+.login_line {
+    width: 380px;
+    height: 1px;
+    background-color: #70ABCA;
+}
+
+.login_info_text {
+    font-size: 11px;
+    color: #70ABCA;
+
+}
+
+.login_icon {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+
+

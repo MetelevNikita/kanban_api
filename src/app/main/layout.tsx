@@ -6,6 +6,7 @@ import "./../globals.css";
 // 
 
 import { useState, createContext } from "react";
+import { QueryClientProvider, QueryClient} from "@tanstack/react-query";
 
 // fonts
 
@@ -32,6 +33,14 @@ export const MenuContext = createContext({
   }
 })
 
+export const RefreshContext = createContext({
+  refresh: false,
+  setRefresh: (value: any) => {
+    return value
+  }
+})
+
+
 
 
 export default function RootLayout({
@@ -40,11 +49,16 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
 
+  const queryClient = new QueryClient()
+
 
   const [menuActive, setMenuActive] = useState('')
+  const [refresh, setRefresh] = useState(false);
 
 
   return (
+    <QueryClientProvider client={queryClient}>
+    <RefreshContext.Provider value={{refresh, setRefresh}}>
       <MenuContext.Provider value={{menuActive, setMenuActive}}>
         <Container fluid>
             <Header/>
@@ -53,5 +67,7 @@ export default function RootLayout({
 
         </Container>
         </MenuContext.Provider>
+      </RefreshContext.Provider>
+      </QueryClientProvider>
   );
 }

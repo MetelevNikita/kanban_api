@@ -1,20 +1,24 @@
 import { FC } from 'react'
 
-// css
+// 
 
-import './MyButton.css'
+import styles from './MyButton.module.css'
 
 // 
 
 interface MyButtonProps {
     text: string
-    color: any
-    onClick?: (e: any) => void
-    type: "button" | "submit" | "reset"
+    onClick: () => void
+    type?: 'button' | 'submit' | 'reset'
+    style: React.CSSProperties
+
 }
-const MyButton: FC<MyButtonProps> = ({text, onClick, type, color}) => {
+
+const MyButton:FC<MyButtonProps> = ({ text, type, onClick, style, ...props }) => {
   return (
-    <button className={color} type={type} onClick={onClick} >{text}</button>
+
+    <button style={style} type={type} className={styles.button} onClick={onClick} {...props}>{text}</button>
+
   )
 }
 

@@ -11,10 +11,7 @@ export const deleteTask = async (id: number) => {
         if (!res.ok) {
             alert ("Failed to delete task")
         }
-
         alert ("Successfully deleted task")
-        window.location.reload()
-
         
     } catch (error) {
         console.error(error)

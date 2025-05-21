@@ -63,12 +63,28 @@ export const POST = async (request: Request) => {
 
     console.log(username, email, password, company);
 
+
+    const emailExists = await prisma.user.findFirst({
+      where: {
+        email: email
+      }
+    })
+
+    if (emailExists) {
+      return NextResponse.json({ message: "email already exists" }, { status: 404 });
+    }
+
+    if (emailExists) {
+      return NextResponse.json({ message: "user already exists" }, { status: 404 });
+      
+    }
+
     if (!username || !email || !password) {
-      return NextResponse.json({ error: "please enter all field" }, { status: 404 });
+      return NextResponse.json({ message: "please enter all field" }, { status: 404 });
     }
 
     if (checkPassword.length <= 6) {
-      return NextResponse.json({ error: "password too short" }, { status: 404 });
+      return NextResponse.json({ message: "password too short" }, { status: 404 });
     }
 
     const hashPassword = await bcrypt.hash(password.trim(), 10);
@@ -85,7 +101,7 @@ export const POST = async (request: Request) => {
     })
 
     if (!user) {
-      return NextResponse.json({ error: "error create users" }, { status: 404 });
+      return NextResponse.json({ message: "error create users" }, { status: 404 });
     }
 
 

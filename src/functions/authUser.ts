@@ -1,11 +1,9 @@
-export const authUser = async (dataAuth: {email: string, password: string}) => {
+export const authUser = async (formData: FormData) => {
 
   try {
 
-
-    const email = dataAuth.email as string;
-    const password = dataAuth.password as string;
-
+    const email = formData.get('email');
+    const password = formData.get('password');
     console.log(email, password);
 
     const responce = await fetch('/api/auth', {
@@ -21,7 +19,6 @@ export const authUser = async (dataAuth: {email: string, password: string}) => {
     }
 
     const data = await responce.json();
-    console.log(data);
     return data;
 
   } catch (error: Error | unknown) {

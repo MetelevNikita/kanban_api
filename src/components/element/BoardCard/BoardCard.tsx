@@ -20,11 +20,15 @@ import { deleteTask } from '@/functions/tasks/deleteTask'
 
 interface BoardCardProps {
   task: TaskType
+  deleteCurrent: (id: number) => any
 }
 
-const BoardCard: FC<BoardCardProps> = ({ task }) => {
-  const dateCreated = new Date(task.createAt).toLocaleDateString()
+const BoardCard: FC<BoardCardProps> = ({ task, deleteCurrent }) => {
 
+
+
+  
+  const dateCreated = new Date(task.createAt).toLocaleDateString()
   const shortenedDescription = task.description.length > 70 ? `${task.description.slice(0, 70)}...` : task.description
 
   return (
@@ -72,7 +76,7 @@ const BoardCard: FC<BoardCardProps> = ({ task }) => {
 
 
             <div className={styles.board_card_bottom_date}>{dateCreated}</div>
-            <Image width={14} src={deleteIcon} alt='delete icon' onClick={() => {deleteTask(task.id)}}/>
+            <Image width={14} src={deleteIcon} alt='delete icon' onClick={() => {deleteCurrent(task.id)}}/>
         </div>
 
     </div>

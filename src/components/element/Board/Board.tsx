@@ -1,4 +1,4 @@
-import { FC } from 'react'
+import { FC, useContext } from 'react'
 
 // css
 
@@ -12,6 +12,14 @@ import BoardCard from '../BoardCard/BoardCard'
 
 import { TaskType, BoardType } from '@/types/types'
 
+// functions
+
+import { deleteTask } from '@/functions/tasks/deleteTask'
+
+// contexts
+
+import { RefreshContext } from '@/app/main/layout'
+
 
 interface BoardProps {
     task: TaskType[]
@@ -22,6 +30,16 @@ interface BoardProps {
 
 const Board: FC<BoardProps> = ({ task, board, color, colorBoard }) => {
 
+
+  const { refresh, setRefresh } = useContext(RefreshContext)
+
+
+  const deleteCurrentTask = (id: number) => {
+    deleteTask(id)
+    setRefresh((prev: Boolean) => !prev) 
+  }
+
+
   return (
     <div className={styles.board_container} style={{backgroundColor: colorBoard}}>
 
@@ -30,7 +48,7 @@ const Board: FC<BoardProps> = ({ task, board, color, colorBoard }) => {
         </div>
 
         {(!task || task.length === 0) ? <div className={styles.no_task}>No Tasks Available</div> : task.map((task: TaskType) => {
-          return <BoardCard key={task.id} task={task}/>
+          return <BoardCard key={task.id} task={task} deleteCurrent={deleteCurrentTask}/>
         })}
 
     </div>
