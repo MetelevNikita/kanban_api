@@ -21,13 +21,17 @@ import { deleteTask } from '@/functions/tasks/deleteTask'
 interface BoardCardProps {
   task: TaskType
   deleteCurrent: (id: number) => any
+  id: {cardId: number | null, setCardId: any}
 }
 
-const BoardCard: FC<BoardCardProps> = ({ task, deleteCurrent }) => {
+const BoardCard: FC<BoardCardProps> = ({ task, deleteCurrent, id }) => {
+
+
+  const {cardId, setCardId} = id
 
 
 
-  
+
   const dateCreated = new Date(task.createAt).toLocaleDateString()
   const shortenedDescription = task.description.length > 70 ? `${task.description.slice(0, 70)}...` : task.description
 
@@ -76,6 +80,7 @@ const BoardCard: FC<BoardCardProps> = ({ task, deleteCurrent }) => {
 
 
             <div className={styles.board_card_bottom_date}>{dateCreated}</div>
+            <div className={styles.board_card_bottom_open_btn} style={(cardId === task.id) ? {backgroundColor: '#B23636'} : {backgroundColor: '#3A9A32'}} onClick={() => {setCardId(task.id)}}>{(cardId === task.id) ? 'Закрыть' : 'Открыть'}</div>
             <Image width={14} src={deleteIcon} alt='delete icon' onClick={() => {deleteCurrent(task.id)}}/>
         </div>
 

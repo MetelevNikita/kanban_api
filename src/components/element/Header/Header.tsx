@@ -43,7 +43,34 @@ const Header: FC = ():React.ReactNode  => {
   const [menu, setMenu] = useState<string>('')
   const [user, setUser] = useState<UserType[]>([])
 
-  console.log(menuActive)
+
+
+
+  const activeButtonStyle = {
+    marginLeft: '2px',
+    marginRight: '2px',
+    width: '184px',
+    height: '40px',
+    borderRadius: '10px',
+    color: 'white',
+    backgroundColor: '#B23636',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+
+  const buttonStyle = {
+    marginLeft: '2px',
+    marginRight: '2px',
+    width: '184px',
+    height: '40px',
+    borderRadius: '10px',
+    color: '#2A4587',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  }
+
 
   useEffect(() => {
     const getUsers = async () => {
@@ -113,7 +140,7 @@ const Header: FC = ():React.ReactNode  => {
 
                 <Col md={8} className={`${styles.header_menu_buttons} d-flex flex-row justify-content-around align-items-center`}>
                   {menuButton.map((item: CompanyArrType ): React.ReactNode => {
-                    return <MyButton key={item.id} color={(item.value === menuActive) ? 'button_active' : 'button'} text={item.label} type={'button'} onClick={(e) => {
+                    return <MyButton key={item.id} style={(item.value === menuActive) ? activeButtonStyle : buttonStyle} text={item.label} type={'button'} onClick={(e) => {
                       setMenu(item.label)
                       setMenuActive(item.value)
                     }}/>
@@ -131,8 +158,6 @@ const Header: FC = ():React.ReactNode  => {
         <Row>
 
             <div className={styles.header_line}></div>
-
-
 
         </Row>
     </Container>

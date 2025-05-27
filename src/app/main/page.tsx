@@ -2,7 +2,7 @@
 
 import { FC, useEffect, useState, useContext } from 'react'
 import { MenuContext, RefreshContext } from './layout'
-import { useQuery, useQueryClient, QueryClientProvider } from '@tanstack/react-query'
+import { motion, AnimatePresence } from "motion/react"
 
 // 
 
@@ -15,6 +15,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 // components
 
 import Board from '@/components/element/Board/Board'
+import OpenCard from '@/components/element/OpenCard/OpenCard'
 
 // types
 
@@ -29,22 +30,16 @@ import { getAllTasks } from '@/functions/tasks/getAllTasks'
 const page: FC = () => {
 
   const {menuActive, setMenuActive} = useContext(MenuContext)
+  const [cardId, setCardId] = useState<number | null>(null)
   const {refresh, setRefresh} = useContext(RefreshContext)
   const [users, setUsers] = useState<UserType[]>([])
   const [tasks, setTasks] = useState<TaskType[]>([])
 
-  console.log(refresh)
-  console.log(menuActive)
 
 
-  // внимательно изучить данную тему!!!!!!!!
-
- const { data } = useQuery({ queryKey: ['todos'], queryFn: getAllTasks, refetchInterval: 30000, staleTime: 300000, refetchOnWindowFocus: false, refetchOnMount: false })
- console.log(data)
+  console.log('cardId', cardId)
 
 
- 
-//  
 
 
  
@@ -71,6 +66,10 @@ const page: FC = () => {
 
 
   const activeCompanyTasks = tasks.filter(item => item.company === menuActive)
+
+
+  const singleTask = tasks.find(item => item.id === cardId)
+  console.log('singleTask', singleTask)
 
 
 
@@ -140,9 +139,18 @@ const page: FC = () => {
           {
 
             (!boardArr || boardArr.length === 0) ? '' : boardArr.map((item: BoardType, index: number): React.ReactNode => {
-              return <Board key={index+1} color={item.color} colorBoard={item.colorBoard} board={item} task={activeCompanyTasks.filter((task) => {return task.status == item.value})}/>
+              return <Board id={{cardId, setCardId}} key={index+1} color={item.color} colorBoard={item.colorBoard} board={item} task={activeCompanyTasks.filter((task) => {return task.status == item.value})}/>
             })
           }
+
+          <AnimatePresence>
+              {(cardId !== null) && 
+                  <motion.div initial={{x: 750}} animate={{x: 150}} exit={{x: 750}} transition={{delay: 0, ease: 0, duration: 0.5}} key={cardId}>
+                      <OpenCard card={singleTask} id={{cardId, setCardId}}/>
+                  </motion.div>
+              }
+          </AnimatePresence>
+
 
           </div>
 

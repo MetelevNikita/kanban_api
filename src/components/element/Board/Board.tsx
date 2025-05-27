@@ -26,9 +26,10 @@ interface BoardProps {
     board: BoardType
     color: string
     colorBoard: string
+    id: {cardId: number | null, setCardId: any}
 }
 
-const Board: FC<BoardProps> = ({ task, board, color, colorBoard }) => {
+const Board: FC<BoardProps> = ({ task, board, color, colorBoard, id }) => {
 
 
   const { refresh, setRefresh } = useContext(RefreshContext)
@@ -36,7 +37,7 @@ const Board: FC<BoardProps> = ({ task, board, color, colorBoard }) => {
 
   const deleteCurrentTask = (id: number) => {
     deleteTask(id)
-    setRefresh((prev: Boolean) => !prev) 
+    setRefresh((prev: Boolean) => !prev)
   }
 
 
@@ -48,7 +49,7 @@ const Board: FC<BoardProps> = ({ task, board, color, colorBoard }) => {
         </div>
 
         {(!task || task.length === 0) ? <div className={styles.no_task}>No Tasks Available</div> : task.map((task: TaskType) => {
-          return <BoardCard key={task.id} task={task} deleteCurrent={deleteCurrentTask}/>
+          return <BoardCard id={id} key={task.id} task={task} deleteCurrent={deleteCurrentTask}/>
         })}
 
     </div>
