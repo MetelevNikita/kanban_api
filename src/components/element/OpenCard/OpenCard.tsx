@@ -8,7 +8,8 @@ import style from './OpenCard.module.css'
 // components
 
 import MyButton from '@/components/UI/Button/MyButton'
-import OpenCardDescription from './OpenCardComment/OpenCardDecription'
+import OpenCardDescription from './OpenCardDescription/OpenCardDecription'
+import OpenCardComment from './OpenCardComment/OpenCardComment'
 
 // img
 
@@ -28,12 +29,10 @@ interface OpenCardProps {
 
 const OpenCard: FC<OpenCardProps> = ({ card, id }) => {
 
+const {cardId, setCardId} = id
+const [button, setButton] = useState('Описание проекта')
 
 console.log(card)
-const {cardId, setCardId} = id
-
-
-const [button, setButton] = useState('Описание проекта')
 
 
 const activeButtonStyle = {
@@ -78,6 +77,19 @@ const buttonStyle = {
 
             <div className={style.open_card_top_status}>
                 <div className={style.open_card_top_status_title}>Статус</div>
+
+                {
+                    (card?.status === 'inbox') ? <div className={style.open_card_top_status_active}>В работе</div> : 
+                    (card?.status === 'agreed') ? <div className={style.open_card_top_status_review}>На проверке</div> :
+                    (card?.status === 'rejected') ? <div className={style.open_card_top_status_wait}>Ожидает исполнителя</div> :
+                    (card?.status === 'comments') ? <div className={style.open_card_top_status_complete}>Завершён</div> :
+
+         
+                    (card?.status !== 'inbox') || (card?.status !== 'agreed') || (card?.status !== 'rejected') || (card?.status === 'comments') ? <div className={style.open_card_top_status_complete}>{card?.status}</div> :
+
+                    null
+                }
+
             </div>
 
         </div>
@@ -93,7 +105,7 @@ const buttonStyle = {
 
             
             {(button === 'Описание проекта') ? <OpenCardDescription card={card} /> : null}
-            {(button === 'Комментарии') ? <div>Финансы</div> : null}
+            {(button === 'Комментарии') ? <OpenCardComment id={cardId} card={card}/> : null}
 
 
         </div>

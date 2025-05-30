@@ -10,12 +10,13 @@ import styles from '@/components/UI/Input/MyInput.module.css'
 import glassIcon from '@/asset/UI/glassIcon.svg'
 
 type MyInputProps = {
-    title: string
+    title?: string
     type: string
     value?: string
     name?: string
     placeholder?: string
     style?: React.CSSProperties
+    onChange?: (e: any) => void
 }
 
 

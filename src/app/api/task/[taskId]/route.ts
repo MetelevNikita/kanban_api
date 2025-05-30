@@ -14,10 +14,36 @@ import { UserType, TaskType } from "@/types/types";
 
 
 
-export const PUT = async (req: Request, { params }: { params: { id: string } }): Promise<NextResponse<TaskType | {message: string}>> => {
+export const GET = async (req: Request, { params }: { params: { taskId: string } }): Promise<NextResponse<TaskType | {message: string} | null>> => {
+  try {
+    const { taskId } = await params;
+
+    if(!taskId) {
+      return NextResponse.json({message: "now any card"}, {status: 400})
+    }
+
+      const task = await prisma.task.findUnique({
+        where: {
+          id: parseInt(taskId),
+        },
+        include: {
+          comment: true
+        }
+    })
+
+    return NextResponse.json(task, {status: 200});
+
+  } catch (error) {
+    return NextResponse.json({message: "error"}, {status: 500})
+  }
+}
+
+
+
+export const PUT = async (req: Request, { params }: { params: { taskId: string } }): Promise<NextResponse<TaskType | {message: string}>> => {
   try {
 
-    const { id } = await params;
+    const { taskId } = await params;
     const { title, description, author, status } = await req.json();
 
     if(!title || !description || !author || !status) {
@@ -27,7 +53,7 @@ export const PUT = async (req: Request, { params }: { params: { id: string } }):
 
     const updateTask = await prisma.task.update({
       where: {
-        id: parseInt(id),
+        id: parseInt(taskId),
       },
       data: {
         title,
@@ -44,7 +70,7 @@ export const PUT = async (req: Request, { params }: { params: { id: string } }):
       return NextResponse.json({message: "error update task"}, {status: 500})
     }
 
-    return NextResponse.json({message: `update task ${id} success`}, {status: 200});
+    return NextResponse.json({message: `update task ${taskId} success`}, {status: 200});
 
 
   } catch (error: unknown) {
@@ -61,17 +87,17 @@ export const PUT = async (req: Request, { params }: { params: { id: string } }):
 
 
 
-export const DELETE = async (req: Request, { params }: { params: { id: string } }): Promise<NextResponse<{message: string}>> => {
+export const DELETE = async (req: Request, { params }: { params: { taskId: string } }): Promise<NextResponse<{message: string}>> => {
   try {
-    const { id } = await params;
+    const { taskId } = await params;
 
-    if(!id) {
+    if(!taskId) {
       return NextResponse.json({message: "no empty fields"}, {status: 400})
     }
 
     const deleteTask = await prisma.task.delete({
       where: {
-        id: parseInt(id),
+        id: parseInt(taskId),
       }
     })
 
@@ -80,7 +106,7 @@ export const DELETE = async (req: Request, { params }: { params: { id: string } 
       return NextResponse.json({message: "error delete task"}, {status: 500})
     }
 
-    return NextResponse.json({message: `delete task ${id}`}, {status: 200});
+    return NextResponse.json({message: `delete task ${taskId}`}, {status: 200});
 
 
   } catch (error: unknown) {

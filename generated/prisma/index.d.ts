@@ -4590,6 +4590,7 @@ export namespace Prisma {
     id: number | null
     postId: number | null
     author: string | null
+    img: string | null
     text: string | null
     createAt: Date | null
   }
@@ -4598,6 +4599,7 @@ export namespace Prisma {
     id: number | null
     postId: number | null
     author: string | null
+    img: string | null
     text: string | null
     createAt: Date | null
   }
@@ -4606,6 +4608,7 @@ export namespace Prisma {
     id: number
     postId: number
     author: number
+    img: number
     text: number
     createAt: number
     _all: number
@@ -4626,6 +4629,7 @@ export namespace Prisma {
     id?: true
     postId?: true
     author?: true
+    img?: true
     text?: true
     createAt?: true
   }
@@ -4634,6 +4638,7 @@ export namespace Prisma {
     id?: true
     postId?: true
     author?: true
+    img?: true
     text?: true
     createAt?: true
   }
@@ -4642,6 +4647,7 @@ export namespace Prisma {
     id?: true
     postId?: true
     author?: true
+    img?: true
     text?: true
     createAt?: true
     _all?: true
@@ -4737,6 +4743,7 @@ export namespace Prisma {
     id: number
     postId: number
     author: string
+    img: string
     text: string
     createAt: Date
     _count: CommentCountAggregateOutputType | null
@@ -4764,6 +4771,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     author?: boolean
+    img?: boolean
     text?: boolean
     createAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
@@ -4773,6 +4781,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     author?: boolean
+    img?: boolean
     text?: boolean
     createAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
@@ -4782,6 +4791,7 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     author?: boolean
+    img?: boolean
     text?: boolean
     createAt?: boolean
     task?: boolean | TaskDefaultArgs<ExtArgs>
@@ -4791,11 +4801,12 @@ export namespace Prisma {
     id?: boolean
     postId?: boolean
     author?: boolean
+    img?: boolean
     text?: boolean
     createAt?: boolean
   }
 
-  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "author" | "text" | "createAt", ExtArgs["result"]["comment"]>
+  export type CommentOmit<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = $Extensions.GetOmit<"id" | "postId" | "author" | "img" | "text" | "createAt", ExtArgs["result"]["comment"]>
   export type CommentInclude<ExtArgs extends $Extensions.InternalArgs = $Extensions.DefaultArgs> = {
     task?: boolean | TaskDefaultArgs<ExtArgs>
   }
@@ -4815,6 +4826,7 @@ export namespace Prisma {
       id: number
       postId: number
       author: string
+      img: string
       text: string
       createAt: Date
     }, ExtArgs["result"]["comment"]>
@@ -5244,6 +5256,7 @@ export namespace Prisma {
     readonly id: FieldRef<"Comment", 'Int'>
     readonly postId: FieldRef<"Comment", 'Int'>
     readonly author: FieldRef<"Comment", 'String'>
+    readonly img: FieldRef<"Comment", 'String'>
     readonly text: FieldRef<"Comment", 'String'>
     readonly createAt: FieldRef<"Comment", 'DateTime'>
   }
@@ -5718,6 +5731,7 @@ export namespace Prisma {
     id: 'id',
     postId: 'postId',
     author: 'author',
+    img: 'img',
     text: 'text',
     createAt: 'createAt'
   };
@@ -6025,6 +6039,7 @@ export namespace Prisma {
     id?: IntFilter<"Comment"> | number
     postId?: IntFilter<"Comment"> | number
     author?: StringFilter<"Comment"> | string
+    img?: StringFilter<"Comment"> | string
     text?: StringFilter<"Comment"> | string
     createAt?: DateTimeFilter<"Comment"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
@@ -6034,6 +6049,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     author?: SortOrder
+    img?: SortOrder
     text?: SortOrder
     createAt?: SortOrder
     task?: TaskOrderByWithRelationInput
@@ -6046,6 +6062,7 @@ export namespace Prisma {
     NOT?: CommentWhereInput | CommentWhereInput[]
     postId?: IntFilter<"Comment"> | number
     author?: StringFilter<"Comment"> | string
+    img?: StringFilter<"Comment"> | string
     text?: StringFilter<"Comment"> | string
     createAt?: DateTimeFilter<"Comment"> | Date | string
     task?: XOR<TaskScalarRelationFilter, TaskWhereInput>
@@ -6055,6 +6072,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     author?: SortOrder
+    img?: SortOrder
     text?: SortOrder
     createAt?: SortOrder
     _count?: CommentCountOrderByAggregateInput
@@ -6071,6 +6089,7 @@ export namespace Prisma {
     id?: IntWithAggregatesFilter<"Comment"> | number
     postId?: IntWithAggregatesFilter<"Comment"> | number
     author?: StringWithAggregatesFilter<"Comment"> | string
+    img?: StringWithAggregatesFilter<"Comment"> | string
     text?: StringWithAggregatesFilter<"Comment"> | string
     createAt?: DateTimeWithAggregatesFilter<"Comment"> | Date | string
   }
@@ -6292,6 +6311,7 @@ export namespace Prisma {
 
   export type CommentCreateInput = {
     author: string
+    img?: string
     text: string
     createAt?: Date | string
     task: TaskCreateNestedOneWithoutCommentInput
@@ -6301,12 +6321,14 @@ export namespace Prisma {
     id?: number
     postId: number
     author: string
+    img?: string
     text: string
     createAt?: Date | string
   }
 
   export type CommentUpdateInput = {
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
     task?: TaskUpdateOneRequiredWithoutCommentNestedInput
@@ -6316,6 +6338,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     postId?: IntFieldUpdateOperationsInput | number
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6324,12 +6347,14 @@ export namespace Prisma {
     id?: number
     postId: number
     author: string
+    img?: string
     text: string
     createAt?: Date | string
   }
 
   export type CommentUpdateManyMutationInput = {
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6338,6 +6363,7 @@ export namespace Prisma {
     id?: IntFieldUpdateOperationsInput | number
     postId?: IntFieldUpdateOperationsInput | number
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -6590,6 +6616,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     author?: SortOrder
+    img?: SortOrder
     text?: SortOrder
     createAt?: SortOrder
   }
@@ -6603,6 +6630,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     author?: SortOrder
+    img?: SortOrder
     text?: SortOrder
     createAt?: SortOrder
   }
@@ -6611,6 +6639,7 @@ export namespace Prisma {
     id?: SortOrder
     postId?: SortOrder
     author?: SortOrder
+    img?: SortOrder
     text?: SortOrder
     createAt?: SortOrder
   }
@@ -6955,6 +6984,7 @@ export namespace Prisma {
 
   export type CommentCreateWithoutTaskInput = {
     author: string
+    img?: string
     text: string
     createAt?: Date | string
   }
@@ -6962,6 +6992,7 @@ export namespace Prisma {
   export type CommentUncheckedCreateWithoutTaskInput = {
     id?: number
     author: string
+    img?: string
     text: string
     createAt?: Date | string
   }
@@ -6999,6 +7030,7 @@ export namespace Prisma {
     id?: IntFilter<"Comment"> | number
     postId?: IntFilter<"Comment"> | number
     author?: StringFilter<"Comment"> | string
+    img?: StringFilter<"Comment"> | string
     text?: StringFilter<"Comment"> | string
     createAt?: DateTimeFilter<"Comment"> | Date | string
   }
@@ -7064,12 +7096,14 @@ export namespace Prisma {
   export type CommentCreateManyTaskInput = {
     id?: number
     author: string
+    img?: string
     text: string
     createAt?: Date | string
   }
 
   export type CommentUpdateWithoutTaskInput = {
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7077,6 +7111,7 @@ export namespace Prisma {
   export type CommentUncheckedUpdateWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }
@@ -7084,6 +7119,7 @@ export namespace Prisma {
   export type CommentUncheckedUpdateManyWithoutTaskInput = {
     id?: IntFieldUpdateOperationsInput | number
     author?: StringFieldUpdateOperationsInput | string
+    img?: StringFieldUpdateOperationsInput | string
     text?: StringFieldUpdateOperationsInput | string
     createAt?: DateTimeFieldUpdateOperationsInput | Date | string
   }

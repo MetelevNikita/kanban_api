@@ -40,6 +40,7 @@ export type CommentType = {
   id: number
   postId: number
   author: string
+  img: string
   text: string
   createAt: Date | any
 }
