@@ -1,7 +1,7 @@
 
 .board_container {
     width: 300px;
-    height: max-content;
+    max-height: max-content;
     margin-top: 20px;
     margin-left: 8px;
     margin-right: 8px;

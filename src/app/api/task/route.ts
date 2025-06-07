@@ -42,7 +42,7 @@ export const GET = async (): Promise<NextResponse<TaskType[] | {message: string}
 
 export const POST = async ( req: Request ): Promise<NextResponse<TaskType | {message: string}>> => {
   try {
-    const { title, telegramId, description, author, status, company } = await req.json();
+    const {taskId, title, telegramId, description, author, status, company } = await req.json();
 
 
     if(!title || !description || !author) {
@@ -53,6 +53,7 @@ export const POST = async ( req: Request ): Promise<NextResponse<TaskType | {mes
 
     const newTask = await prisma.task.create({
       data: {
+        taskId,
         title,
         author,
         telegramId,
@@ -77,6 +78,47 @@ export const POST = async ( req: Request ): Promise<NextResponse<TaskType | {mes
     const errorMessage = error instanceof Error ? error.message : 'Unknown error';
     return NextResponse.json({ message: errorMessage }, { status: 500 });
 
+  }
+}
+
+
+
+export const PATCH = async ( req: Request ): Promise<NextResponse<TaskType | {message: string}>> => {
+  try {
+
+    const {updates} = await req.json()
+    console.log(updates)
+
+
+    const newTasks = await prisma.$transaction(async (tx) => {
+        await tx.task.deleteMany({
+            where: { id: { in: updates.map((task: TaskType) => task.id) }}
+        })
+
+        const createdTasks = [];
+        for (const update of updates) {
+          const task = await tx.task.create({
+            data: {
+              ...update,
+              comment: {
+                create: update.comment || []
+              }
+            },
+            include: { comment: true }
+          });
+          createdTasks.push(task);
+        }
+
+        return createdTasks;
+      });
+
+
+
+    return NextResponse.json({message: 'tasks is update'}, {status: 200});
+
+    
+  } catch (error) {
+    return NextResponse.json({message: `error update task ${error}`}, {status: 500})
   }
 }
 

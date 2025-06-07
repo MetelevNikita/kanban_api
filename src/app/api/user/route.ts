@@ -99,10 +99,38 @@ export const POST = async (request: Request) => {
         isAdmin: false
       }
     })
+    
+
+
+
 
     if (!user) {
       return NextResponse.json({ message: "error create users" }, { status: 404 });
     }
+
+
+    const board = await prisma.board.findMany({
+      where: {
+        company: company.trim(),
+      }
+    })
+
+
+    const newBoard = await prisma.board.create({
+      data: {
+        boardId: (board.length + 1).toString(),
+        company: company.trim(),
+        label: username,
+        value: username,
+        color: '#3D8F8F',
+        colorBoard: '#CDE8E8' 
+      }
+    })
+
+    if (!newBoard) {
+      return NextResponse.json({ message: "error create board user" }, { status: 404 });
+    }
+
 
 
     return NextResponse.json({ message: 'user is created' }, { status: 200 });

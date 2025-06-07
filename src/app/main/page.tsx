@@ -3,6 +3,13 @@
 import { FC, useEffect, useState, useContext } from 'react'
 import { MenuContext, RefreshContext } from './layout'
 import { motion, AnimatePresence } from "motion/react"
+import { v4 as uuid } from 'uuid'
+
+// DND
+
+import { DndContext, DragEndEvent, DragOverlay, closestCorners, PointerSensor, useSensor, useSensors, DragOverEvent, DragStartEvent } from '@dnd-kit/core'
+import { SortableContext, arrayMove, horizontalListSortingStrategy } from '@dnd-kit/sortable';
+
 
 // 
 
@@ -14,17 +21,25 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 // components
 
+import BoardSortable from '@/components/element/BoardSortable/BoardSortable'
 import Board from '@/components/element/Board/Board'
+import BoardCard from '@/components/element/BoardCard/BoardCard'
 import OpenCard from '@/components/element/OpenCard/OpenCard'
 
 // types
 
-import { BoardType, UserType, TaskType } from '@/types/types'
+import { BoardType, UserType, TaskType, BoardTypes } from '@/types/types'
 
-// api
+// functions
 
-import { getAllUsers } from '@/functions/getAllUsers'
+import { getAllUsers } from '@/functions/users/getAllUsers'
 import { getAllTasks } from '@/functions/tasks/getAllTasks'
+import { updateTaskStatus } from '@/functions/tasks/updateTaskStatus'
+import { updateTaskId } from '@/functions/tasks/updateTaskId'
+
+// fn Boards
+
+import { getBoards } from '@/functions/boards/getBoards'
 
 
 const page: FC = () => {
@@ -33,22 +48,84 @@ const page: FC = () => {
   const [cardId, setCardId] = useState<number | null>(null)
   const {refresh, setRefresh} = useContext(RefreshContext)
   const [users, setUsers] = useState<UserType[]>([])
+  const [boards, setBoards] = useState<BoardTypes[]>([])
   const [tasks, setTasks] = useState<TaskType[]>([])
+  const [activeTask, setActiveTask] = useState<TaskType | null>(null)
 
 
 
-  console.log('cardId', cardId)
+  const id = uuid()
+  console.log(id)
 
 
 
+  // DND kit
 
- 
+  const sensors = useSensors(
+    useSensor(PointerSensor),
+  )
+
+
+  const handleDragStart = (event: DragStartEvent) => {
+    const { active } = event;
+    const task = tasks.find(task => task.id === active.id);
+    setActiveTask(task || null);
+  }
+
+
+  const handleDragEnd = async (event: DragEndEvent) => {
+
+    const {active, over} = event;
+
+    console.log(active)
+    console.log(over)
+
+      if (!over || active.id === over.id) return;
+
+      // Переносим карточки внутри одной колонки
+
+      if (active.data.current?.status === over.data.current?.status) {
+        const activeIndex = tasks.findIndex((task) => task.id === active.id);
+        const overIndex = tasks.findIndex((task) => task.id === over.id);
+
+
+        const updatedTasks = arrayMove(tasks, activeIndex, overIndex);
+        setTasks(updatedTasks);
+
+        console.log(updatedTasks)
+        await updateTaskId(updatedTasks)
+
+
+      } else {
+
+        // Переносим карточки между колонками
+
+        setTasks((prevTasks) => 
+          prevTasks.map((task) => (
+               {
+                ...task,
+                status: task.id === active.id ? over.data.current?.status || over.id : task.status,
+              }
+            ))
+          );
+
+          await updateTaskStatus(active.id, over.data.current?.status)
+          setRefresh(!refresh)
+      }
+
+}
+
+
+        console.log(tasks)
+
+
 
   useEffect(() => {
 
     const getTask = async () => {
       const res = await getAllTasks()
-      setTasks(res)
+      const currentTaskCompany = res.filter((task) => task.company === menuActive)
+      setTasks(currentTaskCompany)
       return res
     }
 
@@ -59,89 +136,62 @@ const page: FC = () => {
       return res
     }
 
+    const getAllBoards = async () => {
+      const res = await getBoards()
+      setBoards(res.filter((board: BoardTypes) => board.company === menuActive))
+
+    }
+
     getUser()
     getTask()
+    getAllBoards()
 
-  }, [refresh])
+  }, [refresh, menuActive])
 
 
-  const activeCompanyTasks = tasks.filter(item => item.company === menuActive)
+
 
 
   const singleTask = tasks.find(item => item.id === cardId)
-  console.log('singleTask', singleTask)
 
 
-
-  const boardArr: BoardType[] = [
-    {
-      id: 1,
-      label: 'Входящие',
-      value: 'inbox',
-      color: '#679CAB',
-      colorBoard: '#DBEEF8'
-    },
-    {
-      id: 1,
-      label: 'Согласовано',
-      value: 'agreed',
-      color: '#6CAB67',
-      colorBoard: '#C8D9C6'
-    },
-    {
-      id: 1,
-      label: 'Отклонено',
-      value: 'rejected',
-      color: '#AB6767',
-      colorBoard: '#E9C8C8'
-    },
-    {
-      id: 1,
-      label: 'Замечания',
-      value: 'comments',
-      color: '#DDBD64',
-      colorBoard: '#F2D8AB'
-    }
-
-  ]
-
-
-  const newBoard = users.map((item) => {
-
-      const newBoardCard: BoardType = {
-        id: 0,
-        value: item.username,
-        label: item.username,
-        color: '#2A4587',
-        colorBoard: '#57607D',
-      }
-
-        if (item.company === menuActive) {
-          boardArr.push(newBoardCard)
-        }
-
-  })
-
-
-  if (!users || users.length === 0 || !tasks || tasks.length === 0) {
+  if (!users || users.length === 0) {
     return <div>loading</div>
   }
+
 
   return (
 
 
     <Container fluid className={styles.body_container}>
       <Row>
-        <Col >
+        <Col>
 
         <div className={`${styles.board_list_container}, d-flex flex-row justify-content-center`}>
 
-          {
+          <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
 
-            (!boardArr || boardArr.length === 0) ? '' : boardArr.map((item: BoardType, index: number): React.ReactNode => {
-              return <Board id={{cardId, setCardId}} key={index+1} color={item.color} colorBoard={item.colorBoard} board={item} task={activeCompanyTasks.filter((task) => {return task.status == item.value})}/>
-            })
-          }
+              {
+                (!boards || boards.length === 0) ? <div>НЕТ РАБОЧИХ ДОСОК</div> : boards.map((item: BoardType, index: number): React.ReactNode => {
+                  return <Board id={{cardId, setCardId}} key={index+1} board={item} task={tasks.filter((task) => {return task.status == item.value})}/>
+                })
+              }
+              
+
+
+            <DragOverlay adjustScale={false}>
+                {activeTask ? (
+                  <BoardCard task={activeTask} deleteCurrent={() => { console.log('click') } } id={{
+                    cardId: null,
+                    setCardId: undefined
+                  }} boardLabel='' />
+                ) : null}
+            </DragOverlay>
+
+          </DndContext>
+
+ 
+
 
           <AnimatePresence>
               {(cardId !== null) && 

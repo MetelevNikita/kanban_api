@@ -36,8 +36,33 @@ model Profile {
 }
 
 
+model BoardsGroup {
+  id Int @id @default(autoincrement())
+  designers String[]
+  editors String[]
+  productions String[]
+  operators String[]
+
+}
+
+
+
+model Board {
+  id Int @id @default(autoincrement())
+  boardId String
+  company String
+  label String
+  value String
+  color String
+  colorBoard String
+  createAt DateTime @default(now())
+  updateAt DateTime @updatedAt
+}
+
+
 model Task {
   id Int @id @default(autoincrement())
+  taskId String
   title String
   author String
   telegramId Int

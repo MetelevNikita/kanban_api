@@ -8,7 +8,7 @@ import { Container, Row, Col } from 'react-bootstrap'
 
 // fn
 
-import { createUser } from '@/functions/createUser'
+import { createUser } from '@/functions/users/createUser'
 
 // types
 

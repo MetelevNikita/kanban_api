@@ -33,7 +33,7 @@ import { MenuButtonType, UserType, CompanyArrType } from '@/types/types'
 
 // api
 
-import { getAllUsers } from '@/functions/getAllUsers'
+import { getAllUsers } from '@/functions/users/getAllUsers'
 
 
 

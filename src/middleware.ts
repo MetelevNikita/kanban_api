@@ -6,12 +6,12 @@ export async function middleware(request: NextRequest) {
 
 
   // Если пользователь не имеет токена и пытается получить доступ к страницам, отличным от login/registration
-  if (!token && pathname !== '/login' && pathname !== '/registration') {
+  if (!token && pathname !== '/login' && pathname !== '/registration' && pathname === '/') {
     return NextResponse.redirect(new URL('/login', request.url));
   }
 
   // Если пользователь с токеном пытается получить доступ к login/registration
-  if (token && (pathname === '/login' || pathname === '/registration')) {
+  if (token && (pathname === '/login' || pathname === '/registration' || pathname === '/')) {
     return NextResponse.redirect(new URL('/main', request.url));
   }
 

@@ -116,3 +116,46 @@ export const DELETE = async (req: Request, { params }: { params: { taskId: strin
 
   }
 }
+
+
+// 
+
+
+export const PATCH = async (req: Request, { params }: { params: { taskId: string } }): Promise<NextResponse<TaskType | {message: string}>> => {
+
+  try {
+
+    const { taskId } = await params;
+    const status= await req.json();
+    console.log(status)
+
+    const updateTask = await prisma.task.update({
+      where: {
+        id: parseInt(taskId),
+      },
+      data: {
+        status: status
+      }
+      
+    })
+
+    console.log(updateTask)
+
+    if(!updateTask) {
+      return NextResponse.json({message: "error update task"}, {status: 500})
+    }
+
+    return NextResponse.json({message: 'status is update'}, {status: 200});
+
+
+  } catch (error: unknown) {
+
+    const errorMessage = error instanceof Error ? error.message : 'Unknown error';
+    return NextResponse.json({ message: errorMessage }, { status: 500 });
+
+
+    }
+
+}
+
+

@@ -25,6 +25,7 @@ export type ProfileType = {
 
 export type TaskType = {
   id: number
+  taskId: string
   title: string
   author: string
   telegramId: number
@@ -56,12 +57,28 @@ export type MenuButtonType = {
 
 // Board
 
+
 export type BoardType = {
+  company: string
   id: number
+  boardId: string
   label: string
   value: string
   color: string
   colorBoard: string
+}
+
+
+export type BoardTypes = {
+  id: number
+  boardId: string
+  company: string
+  label: string
+  value: string
+  color: string
+  colorBoard: string
+  createAt: Date | any
+  updateAt: Date | any
 }
 
 
